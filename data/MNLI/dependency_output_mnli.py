@@ -46,7 +46,7 @@ import stanza
 
 DATA_QQP = []
 labels = []
-with open('devdata_matched.tsv') as fr:
+with open('data/MNLI/devdata_matched.tsv') as fr:
     for line in fr.readlines():
         line = line.strip('\n').split('\t')
         DATA_QQP.append(line)
@@ -56,7 +56,7 @@ with open('devdata_matched.tsv') as fr:
 stanza.download('en')
 nlp = stanza.Pipeline()
 
-fo = open("dependency_mnli_test_matched.tsv", "w")
+fo = open("data/MNLI/dependency_mnli_test_matched.tsv", "w")
 
 def get_dependencies(text):
     if text == None or len(text) < 1:
@@ -68,9 +68,9 @@ def get_dependencies(text):
         for idx, dep_edge in enumerate(doc.sentences[i].dependencies):
             x = "_ROOT"
             y = 0
-            if dep_edge[0].index != '0':
-                x = doc.sentences[i].dependencies[int(dep_edge[0].index) - 1][2].text
-                y = int(dep_edge[0].index) + length
+            if dep_edge[0].id != '0':
+                x = doc.sentences[i].dependencies[int(dep_edge[0].id) - 1][2].text
+                y = int(dep_edge[0].id) + length
             fo.write(dep_edge[1] + "\t" + x + "\t" + str(y) + "\t" + dep_edge[2].text + "\t" + str(idx + length + 1) + "\n")
         length = length + len(doc.sentences[i].dependencies)
 
