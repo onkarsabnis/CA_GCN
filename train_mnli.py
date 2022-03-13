@@ -33,7 +33,7 @@ import time
 
 from models.GCN import GCN
 
-EMBEDDING_FILE = 'data/glove.840B.300d.txt'
+EMBEDDING_FILE = '../drive/MyDrive/Project_CNERG/SAL/Transferable-E2E-ABSA/data/glove.840B.300d.txt'
 
 vocab_size = 0
 for i, line in enumerate(open(EMBEDDING_FILE, encoding='utf-8')):
