@@ -33,7 +33,7 @@ import time
 
 from models.GCN import GCN
 
-EMBEDDING_FILE = 'data/glove.840B.300d.txt'
+EMBEDDING_FILE = '../drive/MyDrive/Project_CNERG/SAL/Transferable-E2E-ABSA/data/glove.840B.300d.txt'
 
 vocab_size = 0
 for i, line in enumerate(open(EMBEDDING_FILE, encoding='utf-8')):
@@ -830,11 +830,11 @@ def evaluate(network, G, sentences, labels, len_list, hyps, result_rec_folder, t
 
     if hyps["eval_on_hans"]:
         LABEL_MAP = ["entailment", "neutral", "contradiction"]
-        evalset = GDataset(G[:len_list[0]], sentences[:len_list[0] * 2], labels[:len_list[0]])
+        evalset = GDataset(G[:len_list[0]], sentences[:len_list[0]], labels[:len_list[0]])
     else:
-        evalset = GDataset(G[len_list[0]:len_list[0] + len_list[1]],
-                           sentences[len_list[0] * 2:(len_list[0] + len_list[1]) * 2],
-                           labels[len_list[0]:len_list[0] + len_list[1]])
+        evalset = GDataset(G[len_list[0]],
+                           sentences[len_list[0]],
+                           labels[len_list[0]])
     evaldata_loader = DataLoader(evalset, batch_size=batch_size, shuffle=False, collate_fn=collate)
 
     for iter, data_batch in enumerate(evaldata_loader):
@@ -881,8 +881,8 @@ def evaluate(network, G, sentences, labels, len_list, hyps, result_rec_folder, t
     preds = None
     out_label_ids = None
 
-    evalset = GDataset(G[len_list[0]+len_list[1]:], sentences[(len_list[0]+len_list[1])*2:],
-                       labels[len_list[0]+len_list[1]:])
+    evalset = GDataset(G[len_list[0]], sentences[(len_list[0])],
+                       labels[len_list[0]])
     evaldata_loader = DataLoader(evalset, batch_size=batch_size, shuffle=False, collate_fn=collate)
 
     for iter, data_batch in enumerate(evaldata_loader):
