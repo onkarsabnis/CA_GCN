@@ -211,7 +211,7 @@ class GDataset(object):
 
     def __getitem__(self, idx):
         # return self.Gset[idx], self.Gcls[idx], self.Glabels[idx]
-        return self.Gset[idx], self.Gsent[idx*2], self.Gsent[idx*2+1], self.Glabels[idx]
+        return self.Gset[idx], self.Gsent[idx], self.Gsent[idx], self.Glabels[idx]
 
     def __len__(self):
         # You should change 0 to the total size of your dataset.
