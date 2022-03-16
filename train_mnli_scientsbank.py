@@ -777,6 +777,9 @@ class MatchNetwork(nn.Module):
                 adj1_curr = torch.cat((adj1_curr, torch.zeros(adj1_curr.size(0), seq1_len, seq1_len + seq2_len - seq1_len_curr).to(self.device)), 2)
 
                 adj2_curr = copy.deepcopy(adj_list[i][1]).to(self.device)
+                print(adj2_curr.size(0))
+                print(seq2_len - seq2_len_curr)
+                print(seq2_len_curr)
                 adj2_curr = torch.cat((adj2_curr, torch.zeros(adj2_curr.size(0), seq2_len - seq2_len_curr, seq2_len_curr).to(self.device)), 1)
                 adj2_curr = torch.cat((adj2_curr, torch.zeros(adj2_curr.size(0), seq2_len, seq1_len + seq2_len - seq2_len_curr).to(self.device)), 2)
 
@@ -916,12 +919,12 @@ def evaluate(network, G, sentences, labels, len_list, hyps, result_rec_folder, t
 
 def main():
     hyps = {}
-    hyps["device"] = torch.device("cuda:2" if torch.cuda.is_available() else "cpu")
+    hyps["device"] = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     hyps["encoder_type"] = "bert" # "lstm", "bert" or "roberta"
     hyps["use_gnn"] = True # False
 
-    hyps["num_labels"] = 3
+    hyps["num_labels"] = 2   ###3
     hyps["attn_size"] = 512
     hyps["classifier_hid_dim"] = 512
     hyps["epochs"] = 3
